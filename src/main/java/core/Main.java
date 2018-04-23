@@ -8,6 +8,8 @@ import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.managers.GuildController;
 import utils.PRIVATE;
 import utils.SECRETS;
@@ -37,7 +39,7 @@ public class Main {
         builder.setAutoReconnect(true);
 
         try {
-            builder.setGame(Game.of(Game.GameType.WATCHING, "developing...", "https://www.twitch.tv/thecreeperking56"));
+            builder.setGame(Game.of(Game.GameType.DEFAULT, "beeing developed...", "https://www.twitch.tv/thecreeperking56"));
         }catch (NoSuchMethodError e){
             System.out.println("Skipping process of setting Game");
         }
@@ -52,7 +54,7 @@ public class Main {
         } catch (InterruptedException e) {
             e.printStackTrace();
 //        } catch (RateLimitedException e) {
-//            e.printStackTrace();
+//          e.printStackTrace();
         }
 
         try {

@@ -15,8 +15,28 @@ public class cmd_Random implements Command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent event) throws IOException {
-        String[] command = event.getMessage().getContentRaw().replaceFirst(SECRETS.PREFIX + name() + " ", "").split(", ");
-        event.getTextChannel().sendMessage("Random result: **" + command[new Random().nextInt(command.length - 1)] + "**").queue();
+        if (args[0].equalsIgnoreCase("-n")){
+            int lowerLimit = 0;
+            int upperLimit = 0;
+            try {
+                lowerLimit = Integer.parseInt(args[1]);
+                upperLimit = Integer.parseInt(args[2]);
+            }catch (NumberFormatException e){
+                event.getTextChannel().sendMessage("**ERROR**\n" +
+                        "Argument `-n` requires two numbers following it! (From small to big)\n" +
+                        "e.g. `" + name() +  " -n 1 10`").queue();
+                return;
+            }catch (IllegalArgumentException f){
+                event.getTextChannel().sendMessage("**ERROR**\n" +
+                        "Argument `-n` requires two numbers following it! (From small to big)\n" +
+                        "e.g. `" + name() +  " -n 1 10`").queue();
+                return;
+            }
+            event.getTextChannel().sendMessage("Random result: **" + (lowerLimit + new Random().nextInt((upperLimit - lowerLimit) + 1)) + "**").queue();
+        }else {
+            String[] command = event.getMessage().getContentRaw().replaceFirst(SECRETS.PREFIX + name() + " ", "").split(", ");
+            event.getTextChannel().sendMessage("Random result: **" + command[new Random().nextInt(command.length - 1)] + "**").queue();
+        }
     }
 
     @Override

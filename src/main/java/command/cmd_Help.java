@@ -37,6 +37,12 @@ public class cmd_Help implements Command{
                         "Available help menus exist for following tags:\n" +
                         "`help`, `plevel`, `invite`, `bug`").queue();
                 break;
+            case "random":
+                event.getTextChannel().sendMessage("**HELP for `" + args[0] + "`**\n" +
+                        "Random is a command for select one option for you\n\n" +
+                        "Available tags exist:\n" +
+                        "`-n`").queue();
+                break;
             case "bug":
             case "invite":
                 event.getTextChannel().sendMessage("**HELP for `" + args[0] + "`**\n" +
