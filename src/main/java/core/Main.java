@@ -1,5 +1,6 @@
 package core;
 
+import com.pi4j.io.gpio.*;
 import command.*;
 import core.permission.PermissionLoader;
 import listener.MessageListener;
@@ -30,8 +31,17 @@ public class Main {
     public static HashMap<String, String> guild = new HashMap<>();
 
 
+    public static final GpioController gpio = GpioFactory.getInstance();
+    public static GpioPinDigitalOutput pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_29, "MyLED", PinState.LOW);
+
     @SuppressWarnings("deprecation")
     public static void main(String[] args) throws IOException {
+
+        pin.setShutdownOptions(true, PinState.LOW);
+
+        pin.high();
+
+        new listener.hpio();
 
         builder = new JDABuilder(AccountType.BOT);
 
@@ -60,6 +70,9 @@ public class Main {
         try {
             PermissionLoader.load();
         } catch (IOException e) { e.printStackTrace(); }
+
+        pin.low();
+        gpio.shutdown();
 
     }
 

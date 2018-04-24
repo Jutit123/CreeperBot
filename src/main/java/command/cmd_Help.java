@@ -35,7 +35,7 @@ public class cmd_Help implements Command{
                 event.getTextChannel().sendMessage("**HELP for `" + args[0] + "`**\n" +
                         "Help is a command just for displaying syntax and more for some commands\n\n" +
                         "Available help menus exist for following tags:\n" +
-                        "`help`, `plevel`, `invite`, `bug`").queue();
+                        "`help`, `plevel`, `invite`, `bug`, `random`").queue();
                 break;
             case "random":
                 event.getTextChannel().sendMessage("**HELP for `" + args[0] + "`**\n" +
