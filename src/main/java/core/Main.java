@@ -31,17 +31,25 @@ public class Main {
     public static HashMap<String, String> guild = new HashMap<>();
 
 
-    public static final GpioController gpio = GpioFactory.getInstance();
-    public static GpioPinDigitalOutput pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_29, "MyLED", PinState.LOW);
+    public static GpioController gpio = null;
+    public static GpioPinDigitalOutput pin = null;
 
     @SuppressWarnings("deprecation")
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, UnsatisfiedLinkError {
 
-        pin.setShutdownOptions(true, PinState.LOW);
+        if (System.getProperty("os.name").equalsIgnoreCase("Linux"))
+            SECRETS.PI = true;
+        else
+            SECRETS.PI = false;
 
-        pin.high();
+        if (SECRETS.PI) {
+            gpio = GpioFactory.getInstance();
+            gpio.provisionDigitalOutputPin(RaspiPin.GPIO_29, "MyLED", PinState.LOW);
 
-        new listener.hpio();
+            pin.setShutdownOptions(true, PinState.LOW);
+
+            pin.high();
+        }
 
         builder = new JDABuilder(AccountType.BOT);
 
@@ -71,8 +79,10 @@ public class Main {
             PermissionLoader.load();
         } catch (IOException e) { e.printStackTrace(); }
 
-        pin.low();
-        gpio.shutdown();
+        if (SECRETS.PI){
+            pin.low();
+            new Info();
+        }
 
     }
 
