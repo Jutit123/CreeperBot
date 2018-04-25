@@ -12,6 +12,7 @@ import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.managers.GuildController;
+import utils.PINS;
 import utils.PRIVATE;
 import utils.SECRETS;
 
@@ -32,7 +33,6 @@ public class Main {
 
 
     public static GpioController gpio = null;
-    public static GpioPinDigitalOutput pin = null;
 
     @SuppressWarnings("deprecation")
     public static void main(String[] args) throws IOException, UnsatisfiedLinkError {
@@ -44,11 +44,11 @@ public class Main {
 
         if (SECRETS.PI) {
             gpio = GpioFactory.getInstance();
-            gpio.provisionDigitalOutputPin(RaspiPin.GPIO_29, "MyLED", PinState.LOW);
 
-            pin.setShutdownOptions(true, PinState.LOW);
 
-            pin.high();
+            PINS.pin.setShutdownOptions(true, PinState.LOW);
+
+            PINS.pin.high();
         }
 
         builder = new JDABuilder(AccountType.BOT);
@@ -75,12 +75,14 @@ public class Main {
 //          e.printStackTrace();
         }
 
+        controller = new GuildController(jda.getGuilds().get(0));
+
         try {
             PermissionLoader.load();
         } catch (IOException e) { e.printStackTrace(); }
 
         if (SECRETS.PI){
-            pin.low();
+            PINS.pin.low();
             new Info();
         }
 
