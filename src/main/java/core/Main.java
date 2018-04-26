@@ -3,16 +3,15 @@ package core;
 import com.pi4j.io.gpio.*;
 import command.*;
 import core.permission.PermissionLoader;
+import core.pi.ErrorType;
 import listener.MessageListener;
 import listener.PermissionListener;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import net.dv8tion.jda.core.managers.GuildController;
-import utils.PINS;
 import utils.PRIVATE;
 import utils.SECRETS;
 
@@ -21,6 +20,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static core.pi.PINS.RUNNING;
 
 public class Main {
 
@@ -44,11 +45,6 @@ public class Main {
 
         if (SECRETS.PI) {
             gpio = GpioFactory.getInstance();
-
-
-            PINS.pin.setShutdownOptions(true, PinState.LOW);
-
-            PINS.pin.high();
         }
 
         builder = new JDABuilder(AccountType.BOT);
@@ -68,22 +64,22 @@ public class Main {
         try {
             jda = builder.buildBlocking();
         } catch (LoginException e) {
+            if (SECRETS.PI) core.pi.out.error(ErrorType.CONNECTION_FAILED);
             e.printStackTrace();
         } catch (InterruptedException e) {
+            if (SECRETS.PI) core.pi.out.error(ErrorType.CONNECTION_FAILED);
             e.printStackTrace();
-//        } catch (RateLimitedException e) {
-//          e.printStackTrace();
+        //} catch (RateLimitedException e) {
+        //    e.printStackTrace();
         }
 
         controller = new GuildController(jda.getGuilds().get(0));
 
-        try {
-            PermissionLoader.load();
-        } catch (IOException e) { e.printStackTrace(); }
+        PermissionLoader.load();
 
         if (SECRETS.PI){
-            PINS.pin.low();
-            new Info();
+            new listener.Info();
+            RUNNING.high();
         }
 
     }

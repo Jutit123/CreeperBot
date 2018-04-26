@@ -3,6 +3,7 @@ package command;
 import core.permission.PermissionLevels;
 import core.permission.PermissionLoader;
 import core.permission.permsCore;
+import core.pi.ErrorType;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import utils.Logger;
@@ -43,6 +44,7 @@ public class cmd_Plevel implements Command{
             return;
         }
         if (args.length == 0) {
+            core.pi.out.error(ErrorType.INVALID_ARGUMENT);
             event.getTextChannel().sendMessage("**`" + name() + "` - HELP**\n\n" +
                     "`" + name() + "` is the permission system for this bot!\n" +
                     "You can use the following arguements after a **MentionedUser** with this command:\n" +
@@ -71,6 +73,7 @@ public class cmd_Plevel implements Command{
             }
             return;
         }catch (ArrayIndexOutOfBoundsException e){
+            core.pi.out.error(ErrorType.INVALID_ARGUMENT);
             event.getTextChannel().sendMessage("**SYNTAX ERROR**\n" +
                     "Coorect syntax of _" + name() + "_ would be `" + SECRETS.PREFIX + name() + " <@Mention> <lvl/get>`").queue();
             return;
@@ -87,6 +90,7 @@ public class cmd_Plevel implements Command{
                     .setDescription(event.getAuthor().getAsMention() + " :white_check_mark: Successfully set the permission level of " +
                             event.getMessage().getMentionedMembers().get(0).getAsMention() + " to **" + args[1] + "**").build()).queue();
         }else {
+            core.pi.out.error(ErrorType.INVALID_ARGUMENT);
             event.getTextChannel().sendMessage(new EmbedBuilder()
                     .setTitle("ERROR")
                     .setDescription(event.getAuthor().getAsMention() + " :warning: You cant set the permission level of " +
