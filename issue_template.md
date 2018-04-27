@@ -1,7 +1,5 @@
-##Topic
+//Topic (Dame aß Title)
 
-##What happened
+//How did you produced the issue? (entered Command kg necessary)
 
-##If necessary what you entered 
-
-#What you thought what should happen
+//What should happen?
