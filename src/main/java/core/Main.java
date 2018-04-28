@@ -81,7 +81,12 @@ public class Main {
         PermissionLoader.load();
 
         if (SECRETS.PI){
-            new listener.Info();
+            try {
+                new listener.Info();
+            } catch (InterruptedException e) {
+                core.pi.out.error(ErrorType.OVERFLOW_LIMIT);
+                e.printStackTrace();
+            }
             RUNNING.high();
         }
 
