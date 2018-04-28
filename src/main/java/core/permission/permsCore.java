@@ -55,7 +55,7 @@ public class permsCore {
                 event.getMessage().delete().queue();
                 msg.delete().queue();
             }
-        }, SECRETS.NOT_ALLOWED_TIMOUT);
+        }, SECRETS.NOT_ALLOWED_TIMEOUT);
         core.pi.out.error(ErrorType.USER_PERMISSION_ERROR);
         return true;
     }
@@ -91,7 +91,7 @@ public class permsCore {
                 event.getMessage().delete().queue();
                 msg.delete().queue();
             }
-        }, SECRETS.NOT_ALLOWED_TIMOUT);
+        }, SECRETS.NOT_ALLOWED_TIMEOUT);
         core.pi.out.error(ErrorType.USER_PERMISSION_ERROR);
         return true;
     }
@@ -125,7 +125,7 @@ public class permsCore {
                 event.getMessage().delete().queue();
                 msg.delete().queue();
             }
-        }, SECRETS.NOT_ALLOWED_TIMOUT);
+        }, SECRETS.NOT_ALLOWED_TIMEOUT);
         core.pi.out.error(ErrorType.USER_PERMISSION_ERROR);
         return true;
     }

@@ -22,7 +22,11 @@ public class PermissionLoader {
 
     public static void addToFile(String userID, String GuildID, PermissionLevels lvl) throws IOException {
 
-        File file = new File(SECRETS.PATH_TO_DESKTOP_DIRECTORY + "perms.txt");
+        File file;
+        if (SECRETS.PI)
+            file = new File("/home/pi/Schreibtisch/XayahBot/perms.txt");
+        else
+            file = new File(SECRETS.PATH_TO_DESKTOP_DIRECTORY + "perms.txt");
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
         writer.write(GuildID + ": " + userID + " - " + lvl.ordinal());
         writer.newLine();
@@ -47,7 +51,12 @@ public class PermissionLoader {
         String line = "";
         BufferedReader reader = null;
         try {
-            reader = new BufferedReader(new FileReader(new File(SECRETS.PATH_TO_DESKTOP_DIRECTORY + "perms.txt")));
+            File file;
+            if (SECRETS.PI)
+                file = new File("/home/pi/Schreibtisch/XayahBot/perms.txt");
+            else
+                file = new File(SECRETS.PATH_TO_DESKTOP_DIRECTORY + "perms.txt");
+            reader = new BufferedReader(new FileReader(file));
             while (!line.equals(null)) {
                 line = reader.readLine();
 
@@ -76,7 +85,11 @@ public class PermissionLoader {
 
     public static void toFiles() {
         try {
-            File file = new File(SECRETS.PATH_TO_DESKTOP_DIRECTORY + "perms.txt");
+            File file;
+            if (SECRETS.PI)
+                file = new File("/home/pi/Schreibtisch/XayahBot/perms.txt");
+            else
+                file = new File(SECRETS.PATH_TO_DESKTOP_DIRECTORY + "perms.txt");
 
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             for (UserPermission ud : permissionsFill){
@@ -93,7 +106,11 @@ public class PermissionLoader {
     }
 
     public static void toFile() throws IOException {
-        File file = new File(SECRETS.PATH_TO_DESKTOP_DIRECTORY + "perms.txt");
+        File file;
+        if (SECRETS.PI)
+            file = new File("/home/pi/Schreibtisch/XayahBot/perms.txt");
+        else
+            file = new File(SECRETS.PATH_TO_DESKTOP_DIRECTORY + "perms.txt");
 
         file.createNewFile();
 

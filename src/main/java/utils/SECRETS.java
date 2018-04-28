@@ -10,7 +10,7 @@ public class SECRETS {
 
     public static final String PREFIX = "c!";
 
-    public static final int NOT_ALLOWED_TIMOUT = 15000;
+    public static final int NOT_ALLOWED_TIMEOUT = 15000;
 
     public static final Color XAYAH_RED = new Color(152, 46, 46);
     public static final Color RAKAN_PURPLE = new Color(111, 71, 255);

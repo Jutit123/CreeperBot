@@ -4,6 +4,7 @@ import com.pi4j.io.gpio.*;
 import command.*;
 import core.permission.PermissionLoader;
 import core.pi.ErrorType;
+import core.pi.PINS;
 import listener.MessageListener;
 import listener.PermissionListener;
 import net.dv8tion.jda.core.AccountType;
@@ -46,6 +47,8 @@ public class Main {
         if (SECRETS.PI) {
             gpio = GpioFactory.getInstance();
         }
+
+        if (SECRETS.PI) new PINS();
 
         builder = new JDABuilder(AccountType.BOT);
 

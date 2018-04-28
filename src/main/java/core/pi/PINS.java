@@ -24,8 +24,7 @@ public class PINS {
     public final static GpioPinDigitalInput VOICE_DISCONNECT = gpio.provisionDigitalInputPin(RaspiPin.GPIO_24, PinPullResistance.PULL_DOWN);
     public final static GpioPinDigitalInput RESTART = gpio.provisionDigitalInputPin(RaspiPin.GPIO_25, PinPullResistance.PULL_DOWN);
 
-    public static void main(String args[]){
-        if (SECRETS.PI) {
+    public PINS(){
             ERROR_RED.setShutdownOptions(true, PinState.LOW);
             ERROR_YELLOW.setShutdownOptions(true, PinState.LOW);
             ERROR_GREEN.setShutdownOptions(true, PinState.LOW);
@@ -42,7 +41,6 @@ public class PINS {
             TOGGLE_LIVE.setShutdownOptions(true, PinState.LOW);
             VOICE_DISCONNECT.setShutdownOptions(true, PinState.LOW);
             RESTART.setShutdownOptions(true, PinState.LOW);
-        }
     }
 
 }

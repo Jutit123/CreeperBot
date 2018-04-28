@@ -12,7 +12,7 @@ public class MessageListener extends ListenerAdapter{
     public void onMessageReceived(MessageReceivedEvent event){
 
         try {
-            if (event.getMessage().getContentRaw().startsWith(SECRETS.PREFIX) &&
+            if (event.getMessage().getContentRaw().toLowerCase().startsWith(SECRETS.PREFIX.toLowerCase()) &&
                     ! (event.getMessage().getAuthor().getId().equals(event.getJDA().getSelfUser().getId()))) {
                 commandHandler.handleCommand(commandHandler.parser.parse(event.getMessage().getContentRaw().toLowerCase(), event));
             }
