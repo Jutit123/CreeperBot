@@ -1,5 +1,6 @@
 package core.permission;
 
+import core.pi.ErrorType;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.Role;
@@ -54,7 +55,8 @@ public class permsCore {
                 event.getMessage().delete().queue();
                 msg.delete().queue();
             }
-        }, SECRETS.NOT_ALLOWED_TIMOUT);
+        }, SECRETS.NOT_ALLOWED_TIMEOUT);
+        core.pi.out.error(ErrorType.USER_PERMISSION_ERROR);
         return true;
     }
 
@@ -89,7 +91,8 @@ public class permsCore {
                 event.getMessage().delete().queue();
                 msg.delete().queue();
             }
-        }, SECRETS.NOT_ALLOWED_TIMOUT);
+        }, SECRETS.NOT_ALLOWED_TIMEOUT);
+        core.pi.out.error(ErrorType.USER_PERMISSION_ERROR);
         return true;
     }
 
@@ -122,7 +125,8 @@ public class permsCore {
                 event.getMessage().delete().queue();
                 msg.delete().queue();
             }
-        }, SECRETS.NOT_ALLOWED_TIMOUT);
+        }, SECRETS.NOT_ALLOWED_TIMEOUT);
+        core.pi.out.error(ErrorType.USER_PERMISSION_ERROR);
         return true;
     }
 

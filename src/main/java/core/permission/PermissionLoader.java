@@ -1,5 +1,6 @@
 package core.permission;
 
+import core.pi.ErrorType;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.User;
@@ -21,7 +22,11 @@ public class PermissionLoader {
 
     public static void addToFile(String userID, String GuildID, PermissionLevels lvl) throws IOException {
 
-        File file = new File(SECRETS.PATH_TO_DESKTOP_DIRECTORY + "perms.txt");
+        File file;
+        if (SECRETS.PI)
+            file = new File("/home/pi/Schreibtisch/XayahBot/perms.txt");
+        else
+            file = new File(SECRETS.PATH_TO_DESKTOP_DIRECTORY + "perms.txt");
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
         writer.write(GuildID + ": " + userID + " - " + lvl.ordinal());
         writer.newLine();
@@ -42,11 +47,16 @@ public class PermissionLoader {
         return new UserPermission(user.getId(), guild.getId(), (byte) 0);
     }
 
-    public static void load() throws IOException {
+    public static void load() {
         String line = "";
         BufferedReader reader = null;
-        reader = new BufferedReader(new FileReader(new File(SECRETS.PATH_TO_DESKTOP_DIRECTORY + "perms.txt")));
         try {
+            File file;
+            if (SECRETS.PI)
+                file = new File("/home/pi/Schreibtisch/XayahBot/perms.txt");
+            else
+                file = new File(SECRETS.PATH_TO_DESKTOP_DIRECTORY + "perms.txt");
+            reader = new BufferedReader(new FileReader(file));
             while (!line.equals(null)) {
                 line = reader.readLine();
 
@@ -60,6 +70,10 @@ public class PermissionLoader {
                 permissions.add(new UserPermission(tmpUserID, tmpGuildID, tmpUserPerm));
             }
         }catch (NullPointerException e){}
+        catch (IOException e){
+            core.pi.out.error(ErrorType.NOT_FOUND);
+            e.printStackTrace();
+        }
     }
 
     public static void reload() throws IOException {
@@ -69,21 +83,34 @@ public class PermissionLoader {
 
     private static boolean containsIt = false;
 
-    public static void toFiles() throws IOException {
-        File file = new File(SECRETS.PATH_TO_DESKTOP_DIRECTORY + "perms.txt");
+    public static void toFiles() {
+        try {
+            File file;
+            if (SECRETS.PI)
+                file = new File("/home/pi/Schreibtisch/XayahBot/perms.txt");
+            else
+                file = new File(SECRETS.PATH_TO_DESKTOP_DIRECTORY + "perms.txt");
 
-        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-        for (UserPermission ud : permissionsFill){
-            writer.write(ud.guildID + ": " + ud.getUserID() + " - " + ud.getPermissionLevel());
-            writer.newLine();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            for (UserPermission ud : permissionsFill){
+                writer.write(ud.guildID + ": " + ud.getUserID() + " - " + ud.getPermissionLevel());
+                writer.newLine();
+            }
+            writer.flush();
+            writer.close();
+            reload();
+        } catch (IOException e) {
+            core.pi.out.error(ErrorType.NOT_FOUND);
+            e.printStackTrace();
         }
-        writer.flush();
-        writer.close();
-        reload();
     }
 
     public static void toFile() throws IOException {
-        File file = new File(SECRETS.PATH_TO_DESKTOP_DIRECTORY + "perms.txt");
+        File file;
+        if (SECRETS.PI)
+            file = new File("/home/pi/Schreibtisch/XayahBot/perms.txt");
+        else
+            file = new File(SECRETS.PATH_TO_DESKTOP_DIRECTORY + "perms.txt");
 
         file.createNewFile();
 

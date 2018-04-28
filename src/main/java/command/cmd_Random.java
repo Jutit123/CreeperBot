@@ -1,5 +1,6 @@
 package command;
 
+import core.pi.ErrorType;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import utils.Logger;
 import utils.SECRETS;
@@ -16,6 +17,7 @@ public class cmd_Random implements Command{
     @Override
     public void action(String[] args, MessageReceivedEvent event) throws IOException {
         if (args.length < 2) {
+            core.pi.out.error(ErrorType.INVALID_ARGUMENT);
             event.getTextChannel().sendMessage("**ERROR**\n" +
                     "Please give at least 2 arguments").queue();
         } else {
@@ -23,6 +25,7 @@ public class cmd_Random implements Command{
                 int lowerLimit = 0;
                 int upperLimit = 0;
                 if (args.length < 3){
+                    core.pi.out.error(ErrorType.INVALID_ARGUMENT);
                     event.getTextChannel().sendMessage("**ERROR**\n" +
                             "Argument `-n` requires two numbers following it! (From small to big)\n" +
                             "e.g. `" + name() + " -n 1 10`").queue();
@@ -32,11 +35,13 @@ public class cmd_Random implements Command{
                     lowerLimit = Integer.parseInt(args[1]);
                     upperLimit = Integer.parseInt(args[2]);
                 } catch (NumberFormatException e) {
+                    core.pi.out.error(ErrorType.INVALID_ARGUMENT);
                     event.getTextChannel().sendMessage("**ERROR**\n" +
                             "Argument `-n` requires two numbers following it! (From small to big)\n" +
                             "e.g. `" + name() + " -n 1 10`").queue();
                     return;
                 } catch (IllegalArgumentException f) {
+                    core.pi.out.error(ErrorType.INVALID_ARGUMENT);
                     event.getTextChannel().sendMessage("**ERROR**\n" +
                             "Argument `-n` requires two numbers following it! (From small to big)\n" +
                             "e.g. `" + name() + " -n 1 10`").queue();

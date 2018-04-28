@@ -1,0 +1,13 @@
+package core.pi;
+
+public enum ErrorType {
+
+    INVALID_ARGUMENT,
+    USER_PERMISSION_ERROR,
+    CONNECTION_FAILED,
+    OVERFLOW_LIMIT,
+    BOT_PERMISSION_ERROR,
+    GPIO_ERROR,
+    NOT_FOUND
+
+}

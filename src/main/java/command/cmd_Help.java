@@ -1,9 +1,11 @@
 package command;
 
+import core.pi.ErrorType;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import utils.Logger;
+import utils.SECRETS;
 
 import java.io.IOException;
 import java.util.Timer;
@@ -18,6 +20,7 @@ public class cmd_Help implements Command{
     @Override
     public void action(String[] args, MessageReceivedEvent event) throws IOException {
         if (args.length == 0) {
+            if (SECRETS.PI) core.pi.out.error(ErrorType.INVALID_ARGUMENT);
             Message msg = event.getTextChannel().sendMessage(new EmbedBuilder()
                     .setTitle("**ERROR**")
                     .setDescription("Please specify a which command should be displayed! (e.g. `help`)").build()).complete();
@@ -68,6 +71,7 @@ public class cmd_Help implements Command{
                                 "_plevel <@mention> get_").queue();
                         break;
                     default:
+                        if (SECRETS.PI) core.pi.out.error(ErrorType.INVALID_ARGUMENT);
                         event.getTextChannel().sendMessage("*ERROR**\n" +
                                 "Please enter a valid tag!").queue();
                         break;

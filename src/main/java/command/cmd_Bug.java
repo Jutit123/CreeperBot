@@ -16,7 +16,7 @@ public class cmd_Bug implements Command{
     public void action(String[] args, MessageReceivedEvent event) throws IOException {
         event.getTextChannel().sendMessage(new EmbedBuilder()
                 .setTitle("FOUND ANY BUGS?!")
-                .setDescription("Please report them to Darkness, or the Developer directly!").build()).queue();
+                .setDescription("Please report them to this form! https://goo.gl/LyRfnW").build()).queue();
     }
 
     @Override

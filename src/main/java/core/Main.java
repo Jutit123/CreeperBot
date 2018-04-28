@@ -3,14 +3,15 @@ package core;
 import com.pi4j.io.gpio.*;
 import command.*;
 import core.permission.PermissionLoader;
+import core.pi.ErrorType;
+import core.pi.PINS;
 import listener.MessageListener;
 import listener.PermissionListener;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import net.dv8tion.jda.core.managers.GuildController;
 import utils.PRIVATE;
 import utils.SECRETS;
@@ -21,6 +22,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static core.pi.PINS.RUNNING;
+
 public class Main {
 
     public static JDABuilder builder;
@@ -30,8 +33,21 @@ public class Main {
     static BufferedReader reader = null;
     public static HashMap<String, String> guild = new HashMap<>();
 
+    public static GpioController gpio = null;
+
     @SuppressWarnings("deprecation")
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, UnsatisfiedLinkError {
+
+        if (System.getProperty("os.name").equalsIgnoreCase("Linux"))
+            SECRETS.PI = true;
+        else
+            SECRETS.PI = false;
+
+        if (SECRETS.PI) {
+            gpio = GpioFactory.getInstance();
+        }
+
+        if (SECRETS.PI) new PINS();
 
         builder = new JDABuilder(AccountType.BOT);
 
@@ -50,17 +66,28 @@ public class Main {
         try {
             jda = builder.buildBlocking();
         } catch (LoginException e) {
+            if (SECRETS.PI) core.pi.out.error(ErrorType.CONNECTION_FAILED);
             e.printStackTrace();
         } catch (InterruptedException e) {
+            if (SECRETS.PI) core.pi.out.error(ErrorType.CONNECTION_FAILED);
             e.printStackTrace();
-//        } catch (RateLimitedException e) {
-//          e.printStackTrace();
+        //} catch (RateLimitedException e) {
+        //    e.printStackTrace();
         }
 
-        try {
-            PermissionLoader.load();
-        } catch (IOException e) { e.printStackTrace(); }
+        controller = new GuildController(jda.getGuilds().get(0));
 
+        PermissionLoader.load();
+
+        if (SECRETS.PI){
+            try {
+                new listener.Info();
+            } catch (InterruptedException e) {
+                core.pi.out.error(ErrorType.OVERFLOW_LIMIT);
+                e.printStackTrace();
+            }
+            RUNNING.high();
+        }
     }
 
     public static void addCommands(){
