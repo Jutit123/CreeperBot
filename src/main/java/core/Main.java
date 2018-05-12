@@ -39,6 +39,14 @@ public class Main {
     @SuppressWarnings("deprecation")
     public static void main(String[] args) throws IOException, UnsatisfiedLinkError {
 
+        if (args.length == 1) {
+            try {
+                PRIVATE.setBotToken(Integer.valueOf(args[0]));
+            }catch (NumberFormatException e){
+                System.err.println("args[0] is not an integer to describe bot destinaton");
+            }
+        }
+
         if (System.getProperty("os.name").equalsIgnoreCase("Linux"))
             SECRETS.PI = true;
         else

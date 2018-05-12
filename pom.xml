@@ -109,6 +109,11 @@
             <artifactId>pi4j-core</artifactId>
             <version>1.2-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20180130</version>
+        </dependency>
         <!--
             NEEDED FOR ANOTHER COMMAND NOT IMPLEMENTED YET
         <dependency>
