@@ -33,7 +33,6 @@ public class Main {
     static BufferedReader reader = null;
     public static HashMap<String, String> guild = new HashMap<>();
 
-
     public static GpioController gpio = null;
 
     @SuppressWarnings("deprecation")
@@ -97,7 +96,6 @@ public class Main {
             }
             RUNNING.high();
         }
-
     }
 
     public static void addCommands(){
