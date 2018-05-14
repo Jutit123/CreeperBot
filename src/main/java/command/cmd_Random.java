@@ -49,7 +49,8 @@ public class cmd_Random implements Command{
                 }
                 event.getTextChannel().sendMessage("Random result: **" + (lowerLimit + new Random().nextInt((upperLimit - lowerLimit) + 1)) + "**").queue();
             } else {
-                String[] command = event.getMessage().getContentRaw().replaceFirst(SECRETS.PREFIX + name() + " ", "").split(", ");
+                int lenghtOfCmd = (SECRETS.PREFIX + name() + " ").length();
+                String[] command = event.getMessage().getContentRaw().substring(lenghtOfCmd, event.getMessage().getContentRaw().length()).split(", ");
                 event.getTextChannel().sendMessage("Random result: **" + command[new Random().nextInt(command.length - 1)] + "**").queue();
             }
         }
