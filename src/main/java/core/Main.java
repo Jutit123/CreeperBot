@@ -13,12 +13,14 @@ import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import net.dv8tion.jda.core.managers.GuildController;
+import utils.G_ROLES;
 import utils.PRIVATE;
 import utils.SECRETS;
 
 import javax.security.auth.login.LoginException;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -42,8 +44,17 @@ public class Main {
             try {
                 PRIVATE.setBotToken(Integer.valueOf(args[0]));
             }catch (NumberFormatException e){
-                System.err.println("args[0] is not an integer to describe bot destinaton");
+                System.err.println(args[0] + " is not an integer to describe bot destinaton");
+            }catch (IndexOutOfBoundsException e){
+                System.err.println(args[0] + " is not an integer to describe bot destinaton");
+            }catch (NullPointerException e){
+                System.err.println(args[0] + " is not an integer to describe bot destinaton");
             }
+        }else {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            System.out.println("Enter Args");
+            String s = br.readLine();
+            PRIVATE.setBotToken(Integer.valueOf(s));
         }
 
         if (System.getProperty("os.name").equalsIgnoreCase("Linux"))
@@ -85,6 +96,8 @@ public class Main {
 
         controller = new GuildController(jda.getGuilds().get(0));
 
+        G_ROLES.defineRoles(controller.getGuild());
+
         PermissionLoader.load();
 
         if (SECRETS.PI){
@@ -107,6 +120,7 @@ public class Main {
         commands.add(new cmd_Invite());
         commands.add(new cmd_Geh());
         commands.add(new cmd_Random());
+        commands.add(new cmd_GiveRole());
 
         while (!commands.isEmpty()) {
             commandHandler.commands.put(commands.get(commands.size() - 1).name(), commands.get(commands.size() - 1));
