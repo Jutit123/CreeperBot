@@ -57,13 +57,13 @@ public class cmd_Plevel implements Command{
         }catch (NumberFormatException e) {
             System.out.println(0);
             if (args[1].equalsIgnoreCase("get")) {
-                System.out.println(1);
+                //System.out.println(1);
                 for (PermissionLoader.UserPermission ud : PermissionLoader.permissions) {
-                    System.out.println(2);
+                    //System.out.println(2);
                     if (ud.getUserID().equals(event.getMessage().getMentionedUsers().get(0).getId())) {
-                        System.out.println(3);
+                        //System.out.println(3);
                         if (ud.getGuildID().equals(event.getGuild().getId())) {
-                            System.out.println(4);
+                            //System.out.println(4);
                             event.getTextChannel().sendMessage(":information_source: **`" + event.getMessage().getMentionedUsers().get(0).getName() +
                                     "`** has a permission level of: `[" +
                                     ud.getPermissionLevel() + "] - " + PermissionLevels.values()[ud.getPermissionLevel()] + "`").queue();
