@@ -130,4 +130,13 @@ public class out {
         }
     }
 
+    public static void fileWrite(boolean is){
+        if (SECRETS.PI) {
+            if (is)
+                PINS.FILESYSTEM.high();
+            else
+                PINS.FILESYSTEM.low();
+        }
+    }
+
 }

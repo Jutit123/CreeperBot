@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class SECRETS {
 
-    public static final String PATH_TO_DESKTOP_DIRECTORY = System.getProperty("user.home") + "\\Desktop\\XayahBot\\";
+    public static String PATH_TO_DESKTOP_DIRECTORY = "";
 
     public static boolean PI = false;
 

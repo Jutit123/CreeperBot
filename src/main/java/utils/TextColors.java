@@ -22,4 +22,27 @@ public class TextColors {
     public static final String BACK_CYAN                     = "\u001B[46m";
     public static final String BACK_WHITE                    = "\u001B[47m";
 
+    public static String clearString(String string){
+        return string
+                .replace(String.valueOf(RESET), "")
+
+                .replace(String.valueOf(TEXT_BLACK), "")
+                .replace(String.valueOf(TEXT_RED), "")
+                .replace(String.valueOf(TEXT_GREEN), "")
+                .replace(String.valueOf(TEXT_YELLOW), "")
+                .replace(String.valueOf(TEXT_BLUE), "")
+                .replace(String.valueOf(TEXT_PURPLE), "")
+                .replace(String.valueOf(TEXT_CYAN), "")
+                .replace(String.valueOf(TEXT_WHITE), "")
+
+                .replace(String.valueOf(BACK_BLACK), "")
+                .replace(String.valueOf(BACK_RED), "")
+                .replace(String.valueOf(BACK_GREEN), "")
+                .replace(String.valueOf(BACK_YELLOW), "")
+                .replace(String.valueOf(BACK_BLUE), "")
+                .replace(String.valueOf(BACK_PURPLE), "")
+                .replace(String.valueOf(BACK_CYAN), "")
+                .replace(String.valueOf(BACK_WHITE), "");
+    }
+
 }

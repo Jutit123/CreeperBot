@@ -57,10 +57,13 @@ public class Main {
             PRIVATE.setBotToken(Integer.valueOf(s));
         }
 
-        if (System.getProperty("os.name").equalsIgnoreCase("Linux"))
+        if (System.getProperty("os.name").equalsIgnoreCase("Linux")) {
             SECRETS.PI = true;
-        else
+            SECRETS.PATH_TO_DESKTOP_DIRECTORY = "/home/dbot/";
+        } else{
             SECRETS.PI = false;
+            SECRETS.PATH_TO_DESKTOP_DIRECTORY = System.getProperty("user.home") + "\\Desktop\\XayahBot\\";
+        }
 
         if (SECRETS.PI) {
             gpio = GpioFactory.getInstance();
