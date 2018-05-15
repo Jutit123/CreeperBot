@@ -24,7 +24,31 @@ public class Info {
 
         TOGGLE_LIVE.setShutdownOptions(true);
         RESTART.setShutdownOptions(true);
+        RECONNECT.setShutdownOptions(true);
 
+        RECONNECT.addListener(new GpioPinListenerDigital() {
+            @Override
+            public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
+
+                // display pin state on console
+                System.out.println(" --> GPIO PIN STATE CHANGE: " + event.getPin() + " = " + event.getState());
+                if (event.getPin().equals(RECONNECT)) {
+                    jda.shutdownNow();
+                    RUNNING.low();
+                    try {
+                        jda = builder.buildBlocking();
+                    } catch (LoginException e) {
+                        e.printStackTrace();
+                        core.pi.out.error(ErrorType.CONNECTION_FAILED);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        core.pi.out.error(ErrorType.CONNECTION_FAILED);
+                    }
+                    RUNNING.high();
+                }
+            }
+
+        });
 
         TOGGLE_LIVE.addListener(new GpioPinListenerDigital() {
             @Override

@@ -21,7 +21,7 @@ public class PINS {
     public final static GpioPinDigitalOutput FILESYSTEM = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_01, "MyLED", PinState.LOW);
 
     public final static GpioPinDigitalInput TOGGLE_LIVE = gpio.provisionDigitalInputPin(RaspiPin.GPIO_23, PinPullResistance.PULL_DOWN);
-    public final static GpioPinDigitalInput VOICE_DISCONNECT = gpio.provisionDigitalInputPin(RaspiPin.GPIO_24, PinPullResistance.PULL_DOWN);
+    public final static GpioPinDigitalInput RECONNECT = gpio.provisionDigitalInputPin(RaspiPin.GPIO_24, PinPullResistance.PULL_DOWN);
     public final static GpioPinDigitalInput RESTART = gpio.provisionDigitalInputPin(RaspiPin.GPIO_25, PinPullResistance.PULL_DOWN);
 
     public PINS(){
@@ -39,7 +39,7 @@ public class PINS {
             FILESYSTEM.setShutdownOptions(true, PinState.LOW);
 
             TOGGLE_LIVE.setShutdownOptions(true, PinState.LOW);
-            VOICE_DISCONNECT.setShutdownOptions(true, PinState.LOW);
+            RECONNECT.setShutdownOptions(true, PinState.LOW);
             RESTART.setShutdownOptions(true, PinState.LOW);
     }
 
