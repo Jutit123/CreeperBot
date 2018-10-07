@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
-
 package core;
 
 import com.pi4j.io.gpio.GpioController;
@@ -160,6 +155,7 @@ public class Main {
     public static void addCommands() {
         ArrayList<Command> commands = new ArrayList();
         commands.add(new cmd_Plevel());
+        commands.add(new cmd_Purge());
         commands.add(new cmd_Help());
         commands.add(new cmd_Bug());
         commands.add(new cmd_Invite());
