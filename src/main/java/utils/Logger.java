@@ -26,11 +26,11 @@ public class Logger {
 
         System.out.print(log);
         logs.add(log);
-        if (logs.size() >= 10){
-            core.pi.out.fileWrite(true);
+        if (logs.size() >= 20){
+            if (SECRETS.PI) core.pi.out.fileWrite(true);
             writeLog(logs);
             logs.clear();
-            core.pi.out.fileWrite(false);
+            if (SECRETS.PI) core.pi.out.fileWrite(false);
         }
     }
 

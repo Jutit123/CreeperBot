@@ -20,7 +20,12 @@ public class StatusUpdateListener extends ListenerAdapter {
         if (event.getNewGame() != null) {
             if (event.getNewGame().getType() == GameType.STREAMING) {
                 try {
-                    event.getGuild().getDefaultChannel().sendMessage((new EmbedBuilder()).setTitle("NEUER STREAM VON " + event.getMember().getEffectiveName()).setColor(SECRETS.RAKAN_PURPLE).setThumbnail(event.getMember().getUser().getEffectiveAvatarUrl()).setDescription(event.getNewGame().getName() + "\nSchau vorbei: " + event.getNewGame().getUrl()).build()).queue();
+                    event.getGuild().getDefaultChannel().sendMessage((new EmbedBuilder())
+                            .setTitle("NEUER STREAM VON " + event.getMember().getEffectiveName())
+                            .setColor(SECRETS.RAKAN_PURPLE)
+                            .setThumbnail(event.getMember().getUser().getEffectiveAvatarUrl())
+                            .setDescription(event.getNewGame().getName() + "\nSchau vorbei: " + event.getNewGame().getUrl())
+                            .build()).queue();
                     if (SECRETS.PI && event.getMember().getEffectiveName().equals("winzi")) {
                         out.isLive(true);
                     }

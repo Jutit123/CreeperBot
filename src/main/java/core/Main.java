@@ -7,14 +7,7 @@ package core;
 
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
-import command.Command;
-import command.cmd_Bug;
-import command.cmd_Geh;
-import command.cmd_Help;
-import command.cmd_Invite;
-import command.cmd_Plevel;
-import command.cmd_Random;
-import command.cmd_lategame;
+import command.*;
 import core.permission.PermissionLoader;
 import core.pi.ErrorType;
 import core.pi.PINS;
@@ -159,6 +152,7 @@ public class Main {
             if (((Guild)jda.getGuilds().get(0)).getMemberById("207217596653764608").getGame().getType().equals(GameType.STREAMING)) {
                 out.isLive(true);
             }
+
         }
 
     }
@@ -172,6 +166,7 @@ public class Main {
         commands.add(new cmd_Geh());
         commands.add(new cmd_Random());
         commands.add(new cmd_lategame());
+        commands.add(new cmd_Force());
 
         while(!commands.isEmpty()) {
             commandHandler.commands.put(((Command)commands.get(commands.size() - 1)).name(), commands.get(commands.size() - 1));

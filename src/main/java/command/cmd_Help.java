@@ -38,7 +38,7 @@ public class cmd_Help implements Command{
                 event.getTextChannel().sendMessage("**HELP for `" + args[0] + "`**\n" +
                         "Help is a command just for displaying syntax and more for some commands\n\n" +
                         "Available help menus exist for following tags:\n" +
-                        "`help`, `plevel`, `invite`, `bug`, `random`").queue();
+                        "`help`, `plevel`, `invite`, `bug`, `random`, `force`").queue();
                 break;
             case "random":
                 event.getTextChannel().sendMessage("**HELP for `" + args[0] + "`**\n" +
@@ -57,6 +57,28 @@ public class cmd_Help implements Command{
             case "invite":
                 event.getTextChannel().sendMessage("**HELP for `" + args[0] + "`**\n" +
                         "Just run it :P").queue();
+                break;
+            case "force":
+                if (args.length == 1) {
+                    event.getTextChannel().sendMessage("**HELP for `" + args[0] + "`**\n" +
+                            "force is a command use to force certain events of the bot\n\n" +
+                            "Available tags exist:\n" +
+                            "`live`").queue();
+                    return;
+                }
+                switch (args[1].toLowerCase()){
+                    case "live":
+                        event.getTextChannel().sendMessage("**HELP for `" + args[0] + " " + args[1] + "`**\n" +
+                                "live is used to force the *live-going* event of *user* (hardcoded)\n\n" +
+                                "Available tags exist:\n" +
+                                "`winzi`").queue();
+                        break;
+                    default:
+                        if (SECRETS.PI) core.pi.out.error(ErrorType.INVALID_ARGUMENT);
+                        event.getTextChannel().sendMessage("*ERROR**\n" +
+                                "Please enter a valid tag!").queue();
+                        break;
+                }
                 break;
             case "plevel":
                 if (args.length == 1){
